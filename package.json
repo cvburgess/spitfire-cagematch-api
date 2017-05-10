@@ -1,0 +1,21 @@
+{
+  "name": "unscripted-cagematch-api",
+  "version": "1.0.0",
+  "description": "API to power the Unscripted Theatre Cagematch apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cvburgess/unscripted-cagematch-api.git"
+  },
+  "author": {
+    "name" : "Charles Burgess",
+    "email" : "<consulting@cvburgess.com>"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cvburgess/unscripted-cagematch-api/issues"
+  }
+}
