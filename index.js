@@ -88,6 +88,14 @@ app.delete('/matches/:matchId', (req, res) => {
 ///////////////////////////
 // VOTES - User required //
 ///////////////////////////
+// Cast a vote
+app.post('/votes', bodyParser.json(), (req, res) => {
+  const { userId, teamId, matchId } = req.body;
+
+  return knex.insert({ userId, teamId, matchId }).into('votes').returning('*')
+  .then(voteData => res.json(voteData[0]))
+  .catch(error => res.status(400).json({ error }));
+});
 
 app.listen(port);
 console.log(`Worker listening on :${port}`);
