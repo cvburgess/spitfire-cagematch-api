@@ -127,12 +127,25 @@ app.delete('/teams/:teamId', (req, res) => {
   .catch(error => res.status(400).json({ error }));
 });
 
+///////////
+// VOTES //
+///////////
+
 // Cast a vote
 app.post('/votes', bodyParser.json(), (req, res) => {
   const { userId, teamId, matchId } = req.body;
 
   return knex.insert({ userId, teamId, matchId }).into('votes').returning('*')
   .then(voteData => res.json(voteData[0]))
+  .catch(error => res.status(400).json({ error }));
+});
+
+// Get all votes for match :matchId
+app.get('/votes', (req, res) => {
+  const { matchId } = req.query;
+
+  return knex.select('*').from('votes').where({ matchId })
+  .then(votes => res.json({ votes }))
   .catch(error => res.status(400).json({ error }));
 });
 
