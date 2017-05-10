@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "API to power the Unscripted Theatre Cagematch apps",
   "main": "index.js",
+  "engines": {
+    "node": "6.10.1",
+    "npm": "3.10.5"
+  },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,11 +16,22 @@
     "url": "git+https://github.com/cvburgess/unscripted-cagematch-api.git"
   },
   "author": {
-    "name" : "Charles Burgess",
-    "email" : "<consulting@cvburgess.com>"
+    "name": "Charles Burgess",
+    "email": "<consulting@cvburgess.com>"
   },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cvburgess/unscripted-cagematch-api/issues"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "knex": "^0.13.0",
+    "pg": "^6.1.5"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0"
   }
 }
