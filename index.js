@@ -51,7 +51,7 @@ app.get('/matches', (req, res) => {
   .catch(error => res.status(400).json({ error }));
 });
 
-// Create a match for :matchId
+// Get match for :matchId
 app.get('/matches/:matchId', (req, res) => {
   const { matchId } = req.params;
 
@@ -79,15 +79,54 @@ app.delete('/matches/:matchId', (req, res) => {
   .catch(error => res.status(400).json({ error }));
 });
 
-
 /////////////////////////
 // TEAMS - SK required //
 /////////////////////////
 
+// Create new team
+app.post('/teams', bodyParser.json(), (req, res) => {
+  const { logoData, name } = req.body;
 
-///////////////////////////
-// VOTES - User required //
-///////////////////////////
+  return knex.insert({ logoData, name }).into('teams').returning('*')
+  .then(teamData => res.json(teamData[0]))
+  .catch(error => res.status(400).json({ error }));
+});
+
+// Get all teams
+app.get('/teams', (req, res) => {
+  return knex.select('*').from('teams')
+  .then(teams => res.json({ teams }))
+  .catch(error => res.status(400).json({ error }));
+});
+
+// Get team for :teamId
+app.get('/teams/:teamId', (req, res) => {
+  const { teamId } = req.params;
+
+  return knex.select('*').from('teams').where({ teamId })
+  .then(teamData => res.json(teamData[0]))
+  .catch(error => res.status(400).json({ error }));
+});
+
+// Update team for :teamId
+app.put('/teams/:teamId', bodyParser.json(), (req, res) => {
+  const { teamId } = req.params;
+  const { logoData, name } = req.body;
+
+  return knex('teams').update({ logoData, name }).where({ teamId }).returning('*')
+  .then(teamData => res.json(teamData[0]))
+  .catch(error => res.status(400).json({ error }));
+});
+
+// Delete team for :teamId
+app.delete('/teams/:teamId', (req, res) => {
+  const { teamId } = req.params;
+
+  return knex.del().where({ teamId })
+  .then(rowDeleted => res.sendStatus(204))
+  .catch(error => res.status(400).json({ error }));
+});
+
 // Cast a vote
 app.post('/votes', bodyParser.json(), (req, res) => {
   const { userId, teamId, matchId } = req.body;
