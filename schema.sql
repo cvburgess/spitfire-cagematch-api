@@ -55,6 +55,16 @@ CREATE TABLE matches (
 
 
 --
+-- Name: matches_teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matches_teams (
+    "matchId" uuid,
+    "teamId" uuid
+);
+
+
+--
 -- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -97,6 +107,14 @@ ALTER TABLE ONLY matches
 
 
 --
+-- Name: matches_teams_matchId_teamId_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY matches_teams
+    ADD CONSTRAINT "matches_teams_matchId_teamId_key" UNIQUE ("matchId", "teamId");
+
+
+--
 -- Name: team_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -134,6 +152,22 @@ ALTER TABLE ONLY votes
 
 ALTER TABLE ONLY votes
     ADD CONSTRAINT "votes_userId_matchId_key" UNIQUE ("userId", "matchId");
+
+
+--
+-- Name: matches_teams_matchId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matches_teams
+    ADD CONSTRAINT "matches_teams_matchId_fkey" FOREIGN KEY ("matchId") REFERENCES matches("matchId");
+
+
+--
+-- Name: matches_teams_teamId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matches_teams
+    ADD CONSTRAINT "matches_teams_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES teams("teamId");
 
 
 --
