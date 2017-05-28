@@ -53,8 +53,11 @@ module.exports = {
     return db.select('*').from('matches_teams').where({ matchId });
   },
 
-  findVotesForMatch ({ matchId }, { db }) {
-    return db.select('*').from('votes').where({ matchId });
+  findVotes ({ matchId, teamId }, { db }) {
+    return db.select('*').from('votes').modify(queryBuilder => {
+      if (matchId) queryBuilder.where({ matchId });
+      if (teamId) queryBuilder.where({ teamId });
+    });
   },
 
   openVoting ({ matchId }, { db }) {

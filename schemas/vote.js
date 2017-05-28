@@ -10,8 +10,9 @@ exports.typeDefs = `
 `;
 
 exports.query = `
-  votesForMatch(
-    matchId: ID!
+  votes(
+    teamId: ID
+    matchId: ID
   ): [Vote]
 `;
 
@@ -37,8 +38,8 @@ exports.resolvers = {
   },
 
   Query: {
-    votesForMatch (root, { matchId }, context) {
-      return model.findVotesForMatch({ matchId }, context);
+    votes (root, { matchId, teamId }, context) {
+      return model.findVotes({ matchId, teamId }, context);
     }
   },
 

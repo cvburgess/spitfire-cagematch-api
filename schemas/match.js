@@ -31,6 +31,11 @@ exports.mutation = `
     matchId: ID!
   ): Match!
 
+  removeTeamFromMatch(
+    teamId: ID!
+    matchId: ID!
+  ): Match!
+
   openVoting(
     matchId: ID!
   ): Match!

@@ -5,6 +5,7 @@ exports.typeDefs = `
     teamId: ID!
     name: String!
     logoData: String
+    votes (matchId: ID): [Vote]
   }
 `;
 
@@ -50,6 +51,11 @@ exports.resolvers = {
     updateTeamName (root, { teamId, name }, context) {
       return model.updateTeamName({ teamId, name }, context);
     }
+  },
 
+  Team: {
+    votes ({ teamId }, { matchId }, context) {
+      return model.findVotes({ teamId, matchId }, context);
+    }
   }
 };
