@@ -7,7 +7,7 @@ const schema = require('./schemas');
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const NODE_ENV = process.env.NODE_ENV;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const app = new Koa();
