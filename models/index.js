@@ -44,6 +44,17 @@ module.exports = {
     }).orderBy('date', 'desc');
   },
 
+  findMatchTeams ({ matchId }, { db }) {
+    return db.select('*').from('matches_teams').where({ matchId })
+    .then(teamsInMatch => Promise.all(teamsInMatch.map(
+      ({ teamId }) => this.findTeam({ teamId }, { db })
+      .then(team => {
+        return this.findVotes({ matchId, teamId }, { db })
+        .then(votes => Object.assign(team, { votes }))
+      })
+    )));
+  },
+
   findTeam ({ teamId }, { db }) {
     return db.select('*').from('teams').where({ teamId })
     .then(teamData => teamData[0]);
@@ -53,15 +64,8 @@ module.exports = {
     return db.select('*').from('teams');
   },
 
-  findMatchTeams ({ matchId }, { db }) {
-    return db.select('*').from('matches_teams').where({ matchId });
-  },
-
   findVotes ({ matchId, teamId }, { db }) {
-    return db.select('*').from('votes').modify(queryBuilder => {
-      if (matchId) queryBuilder.where({ matchId });
-      if (teamId) queryBuilder.where({ teamId });
-    });
+    return db.select('*').from('votes').where({ matchId, teamId });
   },
 
   openVoting ({ matchId }, { db }) {

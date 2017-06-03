@@ -5,7 +5,7 @@ exports.typeDefs = `
     teamId: ID!
     name: String!
     logoData: String
-    votes (matchId: ID): [Vote]
+    votes: [Vote]
   }
 `;
 
@@ -59,8 +59,8 @@ exports.resolvers = {
   },
 
   Team: {
-    votes ({ teamId }, { matchId }, context) {
-      return model.findVotes({ teamId, matchId }, context);
-    }
+    // votes (root, { matchId }, context) {
+    //   return model.findVotes({ teamId, matchId }, context) : [];
+    // }
   }
 };

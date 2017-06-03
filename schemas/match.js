@@ -49,8 +49,7 @@ exports.resolvers = {
 
   Match: {
     teams ({ matchId }, params, context) {
-      return model.findMatchTeams({ matchId }, context)
-      .then(matchTeams => matchTeams.map(({ teamId }) => model.findTeam({teamId}, context)));
+      return  model.findMatchTeams({ matchId }, context);
     }
   },
 
