@@ -41,12 +41,16 @@ module.exports = {
   findMatches ({ date }, { db }) {
     return db.select('*').from('matches').modify(queryBuilder => {
       if (date) queryBuilder.where({ date });
-    })
+    }).orderBy('date', 'desc');
   },
 
   findTeam ({ teamId }, { db }) {
     return db.select('*').from('teams').where({ teamId })
     .then(teamData => teamData[0]);
+  },
+
+  findTeams ({ db }) {
+    return db.select('*').from('teams');
   },
 
   findMatchTeams ({ matchId }, { db }) {
@@ -63,6 +67,11 @@ module.exports = {
   openVoting ({ matchId }, { db }) {
     return db('matches').update({ isVotingOpen: true }).where({ matchId }).returning('*')
     .then(matchData => matchData[0]);
+  },
+
+  removeTeamFromMatch ({ matchId, teamId }, { db }) {
+    return db('matches_teams').del().where({ matchId, teamId })
+    .then(() => this.findMatch({ matchId }, { db }));
   },
 
   updateTeamLogoData ({ teamId, logoData }, { db }) {
