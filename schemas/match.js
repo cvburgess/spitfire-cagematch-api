@@ -69,6 +69,10 @@ exports.resolvers = {
       return model.addTeamToMatch({ matchId, teamId }, context);
     },
 
+    removeTeamFromMatch (root, { matchId, teamId }, context) {
+      return model.removeTeamFromMatch({ matchId, teamId }, context);
+    },
+
     createMatch (root, { date, isVotingOpen }, context) {
       return model.createMatch({ date, isVotingOpen }, context);
     },
@@ -79,7 +83,7 @@ exports.resolvers = {
 
     closeVoting (root, { matchId }, context) {
       return model.closeVoting({ matchId }, context);
-    }
+    },
   }
 
 };
