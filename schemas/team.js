@@ -13,6 +13,8 @@ exports.query = `
   team(
     teamId: ID!
   ): Team
+
+  teams: [Team]
 `;
 
 exports.mutation = `
@@ -36,6 +38,9 @@ exports.resolvers = {
   Query: {
     team (root, { teamId }, context) {
       return model.findTeam({ teamId }, context);
+    },
+    teams (root, params, context) {
+      return model.findTeams(context);
     }
   },
 
