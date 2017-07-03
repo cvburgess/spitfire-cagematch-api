@@ -64,6 +64,11 @@ module.exports = {
     return db.select('*').from('teams');
   },
 
+  findUser ({ email }, { db }) {
+    return db.select('*').from('users').where({ email })
+    .then(userData => userData[0]);
+  },
+
   findVotes ({ matchId, teamId }, { db }) {
     return db.select('*').from('votes').where({ matchId, teamId });
   },

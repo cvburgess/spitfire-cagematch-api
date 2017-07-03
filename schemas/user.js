@@ -8,7 +8,11 @@ exports.typeDefs = `
   }
 `;
 
-exports.query = ``;
+exports.query = `
+  user(
+    email: String!
+  ): User
+`;
 
 exports.mutation = `
   createUser(
@@ -18,6 +22,11 @@ exports.mutation = `
 `;
 
 exports.resolvers = {
+  Query: {
+    user (root, { email }, context) {
+      return model.findUser({ email }, context);
+    }
+  },
   Mutation: {
     createUser (root, { email, hasOptedIn }, context) {
       return model.createUser({ email, hasOptedIn }, context);
