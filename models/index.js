@@ -66,8 +66,12 @@ module.exports = {
     return db.select('*').from('teams');
   },
 
-  findUser ({ email }, { db }) {
-    return db.select('*').from('users').where({ email })
+  findUser ({ email, userId }, { db }) {
+    return db.select('*').from('users')
+    .modify(queryBuilder => {
+      if (email) queryBuilder.where({ email });
+      if (userId) queryBuilder.where({ userId });
+    })
     .then(userData => userData[0]);
   },
 
