@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 module.exports = {
 
   addTeamToMatch ({ matchId, teamId }, { db }) {
