@@ -1,7 +1,7 @@
 {
-  "name": "unscripted-cagematch-api",
+  "name": "spitfire-cagematch-api",
   "version": "1.0.0",
-  "description": "API to power the Unscripted Theatre Cagematch apps",
+  "description": "API to power the Spitfire Theater Cagematch apps",
   "main": "index.js",
   "engines": {
     "node": "6.10.1",
